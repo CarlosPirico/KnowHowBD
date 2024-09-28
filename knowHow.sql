@@ -32,7 +32,7 @@ CREATE TABLE IF NOT EXISTS `answer` (
 INSERT INTO `answer` (`id`, `answer`, `question_id`) VALUES
 	(1, 'sim', 1);
 
--- Copiando estrutura para tabela master.excercice
+-- Copiando estrutura para tabela master.excercice - Exercicio
 CREATE TABLE IF NOT EXISTS `excercice` (
   `id` int NOT NULL AUTO_INCREMENT,
   `subject_id` int NOT NULL DEFAULT (0),
@@ -46,11 +46,11 @@ CREATE TABLE IF NOT EXISTS `excercice` (
   KEY `nivel` (`nivel`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Copiando dados para a tabela master.excercice: ~1 rows (aproximadamente)
+-- Copiando dados para a tabela master.excercice:
 INSERT INTO `excercice` (`id`, `subject_id`, `tip`, `content`, `nivel`, `description exercice`, `solution`) VALUES
 	(1, 1, 'tete', 'tete', 1, 'tata', 'tete');
 
--- Copiando estrutura para tabela master.history_answer
+-- Copiando estrutura para tabela master.history_answer - Historicos de respostas de cada usuario
 CREATE TABLE IF NOT EXISTS `history_answer` (
   `id` int NOT NULL AUTO_INCREMENT,
   `user_id` int NOT NULL,
@@ -59,11 +59,11 @@ CREATE TABLE IF NOT EXISTS `history_answer` (
   KEY `user_id` (`user_id`,`answer_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Copiando dados para a tabela master.history_answer: ~1 rows (aproximadamente)
+-- Copiando dados para a tabela master.history_answer:
 INSERT INTO `history_answer` (`id`, `user_id`, `answer_id`) VALUES
 	(1, 1, 1);
 
--- Copiando estrutura para tabela master.history_excercice
+-- Copiando estrutura para tabela master.history_excercice - Historicos de exercicio de cada usuario
 CREATE TABLE IF NOT EXISTS `history_excercice` (
   `id` int NOT NULL AUTO_INCREMENT,
   `user_id` int NOT NULL DEFAULT '0',
@@ -72,11 +72,11 @@ CREATE TABLE IF NOT EXISTS `history_excercice` (
   KEY `excercice_id` (`excercice_id`,`user_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Copiando dados para a tabela master.history_excercice: ~1 rows (aproximadamente)
+-- Copiando dados para a tabela master.history_excercice:
 INSERT INTO `history_excercice` (`id`, `user_id`, `excercice_id`) VALUES
 	(1, 1, 1);
 
--- Copiando estrutura para tabela master.question
+-- Copiando estrutura para tabela master.question - Perguntas
 CREATE TABLE IF NOT EXISTS `question` (
   `id` int NOT NULL AUTO_INCREMENT,
   `questions` varchar(300) NOT NULL,
@@ -87,11 +87,11 @@ CREATE TABLE IF NOT EXISTS `question` (
   KEY `nivel` (`nivel`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Copiando dados para a tabela master.question: ~1 rows (aproximadamente)
+-- Copiando dados para a tabela master.question:
 INSERT INTO `question` (`id`, `questions`, `nivel`, `subject_id`) VALUES
 	(1, 'Voce sabe POO?', 1, 1);
 
--- Copiando estrutura para tabela master.subject
+-- Copiando estrutura para tabela master.subject - Materia
 CREATE TABLE IF NOT EXISTS `subject` (
   `id` int NOT NULL DEFAULT (0),
   `name` varchar(255) DEFAULT NULL,
@@ -100,12 +100,12 @@ CREATE TABLE IF NOT EXISTS `subject` (
   UNIQUE KEY `name` (`name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Copiando dados para a tabela master.subject: ~2 rows (aproximadamente)
+-- Copiando dados para a tabela master.subject:
 INSERT INTO `subject` (`id`, `name`, `abbreviation`) VALUES
 	(1, 'Programação Orientada a Objeto', 'POO'),
 	(2, 'Select Query Language', 'SQL');
 
--- Copiando estrutura para tabela master.user
+-- Copiando estrutura para tabela master.user - Usuario
 CREATE TABLE IF NOT EXISTS `user` (
   `id` int NOT NULL AUTO_INCREMENT,
   `name` varchar(50) DEFAULT NULL,
@@ -115,7 +115,7 @@ CREATE TABLE IF NOT EXISTS `user` (
   KEY `nivel` (`nivel`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Copiando dados para a tabela master.user: ~1 rows (aproximadamente)
+-- Copiando dados para a tabela master.user: 
 INSERT INTO `user` (`id`, `name`, `password`, `nivel`) VALUES
 	(1, 'Carlos Pirico', '803b8c8816765e9da52433f96caef906', 1);
 
