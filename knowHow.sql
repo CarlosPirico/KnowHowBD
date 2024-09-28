@@ -26,22 +26,55 @@ CREATE TABLE IF NOT EXISTS `answer` (
   `question_id` int DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `question_id` (`question_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Copiando dados para a tabela master.answer: ~0 rows (aproximadamente)
+-- Copiando dados para a tabela master.answer: ~1 rows (aproximadamente)
+INSERT INTO `answer` (`id`, `answer`, `question_id`) VALUES
+	(1, 'sim', 1);
 
 -- Copiando estrutura para tabela master.excercice
 CREATE TABLE IF NOT EXISTS `excercice` (
-  `Subjects` varchar(500) NOT NULL DEFAULT 'AUTO_INCREMENT',
-  `Tip` varchar(50) NOT NULL,
-  `Content` varchar(500) NOT NULL DEFAULT '',
-  `level` decimal(20,0) NOT NULL DEFAULT '1',
+  `id` int NOT NULL AUTO_INCREMENT,
+  `subject_id` int NOT NULL DEFAULT (0),
+  `tip` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `content` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT '',
+  `nivel` decimal(20,0) NOT NULL DEFAULT '1',
   `description exercice` varchar(150) NOT NULL DEFAULT '',
   `solution` varchar(200) NOT NULL DEFAULT '',
-  PRIMARY KEY (`Subjects`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  PRIMARY KEY (`id`) USING BTREE,
+  KEY `subject_id` (`subject_id`),
+  KEY `nivel` (`nivel`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Copiando dados para a tabela master.excercice: ~0 rows (aproximadamente)
+-- Copiando dados para a tabela master.excercice: ~1 rows (aproximadamente)
+INSERT INTO `excercice` (`id`, `subject_id`, `tip`, `content`, `nivel`, `description exercice`, `solution`) VALUES
+	(1, 1, 'tete', 'tete', 1, 'tata', 'tete');
+
+-- Copiando estrutura para tabela master.history_answer
+CREATE TABLE IF NOT EXISTS `history_answer` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `user_id` int NOT NULL,
+  `answer_id` int DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `user_id` (`user_id`,`answer_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- Copiando dados para a tabela master.history_answer: ~1 rows (aproximadamente)
+INSERT INTO `history_answer` (`id`, `user_id`, `answer_id`) VALUES
+	(1, 1, 1);
+
+-- Copiando estrutura para tabela master.history_excercice
+CREATE TABLE IF NOT EXISTS `history_excercice` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `user_id` int NOT NULL DEFAULT '0',
+  `excercice_id` int NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`),
+  KEY `excercice_id` (`excercice_id`,`user_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- Copiando dados para a tabela master.history_excercice: ~1 rows (aproximadamente)
+INSERT INTO `history_excercice` (`id`, `user_id`, `excercice_id`) VALUES
+	(1, 1, 1);
 
 -- Copiando estrutura para tabela master.question
 CREATE TABLE IF NOT EXISTS `question` (
@@ -50,38 +83,41 @@ CREATE TABLE IF NOT EXISTS `question` (
   `nivel` int NOT NULL DEFAULT '1',
   `subject_id` int NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`),
-  KEY `subject_id` (`subject_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  KEY `subject_id` (`subject_id`),
+  KEY `nivel` (`nivel`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Copiando dados para a tabela master.question: ~0 rows (aproximadamente)
-
--- Copiando estrutura para tabela master.studing more
-CREATE TABLE IF NOT EXISTS `studing more` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `Topics` varchar(500) NOT NULL DEFAULT 'eegertert',
-  `Object_java` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
-  `Class_java` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
-  `Attributes_java` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
-  `Method_java` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
-  `Instance_java` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
--- Copiando dados para a tabela master.studing more: ~0 rows (aproximadamente)
+-- Copiando dados para a tabela master.question: ~1 rows (aproximadamente)
+INSERT INTO `question` (`id`, `questions`, `nivel`, `subject_id`) VALUES
+	(1, 'Voce sabe POO?', 1, 1);
 
 -- Copiando estrutura para tabela master.subject
 CREATE TABLE IF NOT EXISTS `subject` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `name` varchar(50) NOT NULL DEFAULT '0',
+  `id` int NOT NULL DEFAULT (0),
+  `name` varchar(255) DEFAULT NULL,
   `abbreviation` tinytext,
   PRIMARY KEY (`id`),
   UNIQUE KEY `name` (`name`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- Copiando dados para a tabela master.subject: ~2 rows (aproximadamente)
 INSERT INTO `subject` (`id`, `name`, `abbreviation`) VALUES
 	(1, 'Programação Orientada a Objeto', 'POO'),
 	(2, 'Select Query Language', 'SQL');
+
+-- Copiando estrutura para tabela master.user
+CREATE TABLE IF NOT EXISTS `user` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `name` varchar(50) DEFAULT NULL,
+  `password` varchar(50) DEFAULT NULL,
+  `nivel` int DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `nivel` (`nivel`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- Copiando dados para a tabela master.user: ~1 rows (aproximadamente)
+INSERT INTO `user` (`id`, `name`, `password`, `nivel`) VALUES
+	(1, 'Carlos Pirico', '803b8c8816765e9da52433f96caef906', 1);
 
 /*!40103 SET TIME_ZONE=IFNULL(@OLD_TIME_ZONE, 'system') */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
